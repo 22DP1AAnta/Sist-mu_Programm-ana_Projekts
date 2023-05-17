@@ -1,0 +1,20 @@
+[
+  {
+    "exercise": "Benchpress",
+    "sets": 4,
+    "reps": 10,
+    "description": 20000
+  },
+  {
+    "make": "Honda",
+    "model": "Accord",
+    "year": 2019,
+    "price": 22000
+  },
+  {
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2020,
+    "price": 30000
+  }
+]
