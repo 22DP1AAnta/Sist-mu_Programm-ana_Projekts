@@ -55,7 +55,7 @@ def delete_data():
     if choice2 == 2:
         default_index_check(choice2)
         work_out = Work_out("", "", 0, "", "")
-        work_out.delete_data_from_workouts("workouts.json", index)
+        work_out.delete_data_from_workouts("workout.json", index)
         q_continue()
 
     elif choice2 == 3:
