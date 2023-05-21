@@ -3,8 +3,8 @@
 ## 3 objekti - treneris, workouts, users
 
 ## Funkcijas:
-##### Datu pievienošana
-##### Datu attēlošana (viens objekts, vairāki objekti, tabulas veidā) 
+##### Datu pievienošana +-
+##### Datu attēlošana (viens objekts, vairāki objekti, tabulas veidā) DONE
 ##### Datu dzēšana (dzēšana pēc noteiktā kritērija) 
 ##### Datu meklēšana un filtrēšana (iespēja uzstādīt dažādus kritērijus, vismaz 3)
 ##### Jebkuru raksturlielumu aprēķins, piemēram, ierakstu skaits ar noteiktu
