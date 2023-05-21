@@ -1,50 +1,16 @@
 [
   {
-    "age": 17,
-    "name": "Artjoms",
-    "number": "+37128750369",
-    "adress": "D\u0101rzciema iela 64"
-  },
-  {
-    "age": 1,
-    "name": "1",
-    "number": "1",
-    "address": "1"
-  },
-  {
-    "age": 21,
-    "name": "Roslova",
-    "number": "58735879348795",
-    "address": "gfdhgdfhgdfjkg"
-  },
-  {
+    "name": "viesturs",
+    "surname": "emerbergs",
     "age": 18,
-    "name": "43",
-    "number": "54",
-    "address": "65"
+    "phone": "37127885614",
+    "address": "parka iela 14"
   },
   {
-    "age": 43,
-    "name": "43",
-    "number": "43",
-    "address": "43"
-  },
-  {
-    "age": 23,
-    "name": "32",
-    "number": "32",
-    "address": "32"
-  },
-  {
-    "age": 23,
-    "name": "32",
-    "number": "32",
-    "address": "32"
-  },
-  {
-    "age": 43,
-    "name": "43",
-    "number": "43",
-    "address": "43"
+    "name": "Artjoms",
+    "surname": "Antanovics",
+    "age": 18,
+    "phone": "+37128750369",
+    "address": "TAva mamam"
   }
 ]

@@ -1,22 +1,24 @@
 import json
-class Work_out:
-    def __init__(self, exercise, sets, reps, description, weight):
-        self.exercise = exercise
-        self.sets = sets
-        self.reps= reps
-        self.description = description
-        self.weight = weight
+class Coach:  # definejam klasi
+    def __init__(self, name , surname, age, phone, address, work_stasis):
+        self.name = name
+        self.surname = surname
+        self.age = age
+        self.phone = phone
+        self.address = address
+        self.work_stasis = work_stasis
 
 
-
-    def append_data_to_workouts(self, file_path, exercise, sets, reps, description, weight):
+    def append_data_to_coach(self, file_path, name, surname, age, phone, address, work_stasis):
         new_data = { 
-            "exercise": exercise,
-            "sets": sets,
-            "reps": reps,
-            "description": description,
-            "weight": weight
+            "name": name,
+            "surname" : surname,
+            "age": age,
+            "phone": phone,
+            "address": address,
+            "work_stasis": work_stasis
         }
+
         try:
             with open(file_path, 'r', encoding="UTF-8") as file:
                 data = json.load(file)
@@ -24,11 +26,12 @@ class Work_out:
             data = []
 
         data.append(new_data)
-
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=2)
 
-    def print_data_of_workouts(self, file_path):
+
+
+    def print_data_of_coach(self, file_path):
         try:
             with open(file_path, 'r', encoding="UTF-8") as file:
                 data = json.load(file)
@@ -48,42 +51,45 @@ class Work_out:
         print(
             "№".ljust(3),
             "\033[92m" + "|" + "\033[0m",
-            "Exercise".ljust(20),
+            "Name".ljust(20),
             "\033[92m" + "|" + "\033[0m",
-            "Sets".ljust(6),
+            "Surname".ljust(20),
             "\033[92m" + "|" + "\033[0m",
-            "Reps".ljust(6),
+            "Age".ljust(5),
             "\033[92m" + "|" + "\033[0m",
-            "Weight".ljust(8),
+            "Stasis".ljust(5),
             "\033[92m" + "|" + "\033[0m",
-            "Descriptions"
+            "Phone".ljust(15),
+            "\033[92m" + "|" + "\033[0m",
+            "Address"
         )
 
         # Print data rows"|"
         index = 0
-        for workout in data:
-            exercise = workout.get("exercise", "")
-            sets = workout.get("sets", "")
-            reps = workout.get("reps", "")
-            description = workout.get("description", "")
-            weight = workout.get("weight", "")
-
-            print("\033[92m" + "-" * 115 + "\033[0m")  # augsa
+        for coach in data:
+            name = coach.get("name", "")
+            surname = coach.get("surname", "")
+            age = str(coach.get("age", ""))
+            phone = coach.get("phone", "")
+            address = coach.get("address", "")
+            work_stasis = str(coach.get("work_stasis", ""))
+            print("\033[92m" + "-" * 115 + "\033[0m")
             print(
                 str(index).ljust(3),
                 "\033[92m" + "|" + "\033[0m",
-                exercise.ljust(20),
+                name.ljust(20),
                 "\033[92m" + "|" + "\033[0m",
-                sets.ljust(6),
+                surname.ljust(20),
                 "\033[92m" + "|" + "\033[0m",
-                reps.ljust(6),
+                age.ljust(5),
                 "\033[92m" + "|" + "\033[0m",
-                weight.ljust(8),
+                work_stasis.ljust(6),
                 "\033[92m" + "|" + "\033[0m",
-                description
+                phone.ljust(15),
+                "\033[92m" + "|" + "\033[0m",
+                address
             )
             index += 1
 
         print("\033[92m" + "-" * 115 + "\033[0m")
         print("\n\n")
-        
