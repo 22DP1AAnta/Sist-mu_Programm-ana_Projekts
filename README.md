@@ -1,4 +1,4 @@
-# projekts - "GYM by gymbros"
+# projekts - **"GYM by gymbros"**
 ---
 ## 3 objekti - treneris, workouts, users
 
