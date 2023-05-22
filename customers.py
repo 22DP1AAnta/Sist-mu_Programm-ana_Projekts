@@ -189,3 +189,40 @@ class Customers:
             json.dump(data, file, indent=2)
 
         print("Data deleted successfully.")
+
+    @staticmethod
+    def sort_json_customers(file_path, sort_option):
+        try:
+            with open(file_path, 'r', encoding="UTF-8") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            print("File not found.")
+            return
+        except json.JSONDecodeError:
+            print("Invalid JSON format.")
+            return
+
+        if not data:
+            print("No data available.")
+            return
+
+        if sort_option == 1:  # by name in alphabetical order
+            sorted_data = sorted(data, key=lambda x: x['name'])
+        elif sort_option == 2:
+            sorted_data = sorted(data, key=lambda x: x['name'], reverse=True)  # reverse =  True, reverses the sort
+        elif sort_option == 3:  # by surname in alphabetical order
+            sorted_data = sorted(data, key=lambda x: x['surname'])
+        elif sort_option == 4:
+            sorted_data = sorted(data, key=lambda x: x['surname'], reverse=True)
+        elif sort_option == 5:  # by age
+            sorted_data = sorted(data, key=lambda x: x['age'])
+        elif sort_option == 6:
+            sorted_data = sorted(data, key=lambda x: x['age'], reverse=True)
+        else:
+            print("Invalid sort option.")
+            return
+
+        with open(file_path, 'w') as file:
+            json.dump(sorted_data, file, indent=2)
+
+        print("Data sorted successfully.")

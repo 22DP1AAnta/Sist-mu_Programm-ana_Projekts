@@ -1,65 +1,30 @@
 [
   {
-    "name": "es",
-    "surname": "un tu",
-    "age": 78,
-    "phone": "83939",
-    "address": "parak iela"
-  },
-  {
-    "name": "no",
-    "surname": "no",
-    "age": 90,
+    "name": "Aleksis",
+    "surname": "Vejs",
+    "age": 17,
     "phone": "mno",
     "address": "no"
   },
   {
-    "name": "viesturs",
-    "surname": "emerbergs",
-    "age": 89,
-    "phone": "89833",
-    "address": "parka iela 14"
-  },
-  {
-    "name": "viesturs",
-    "surname": "emerbergs",
-    "age": 89,
+    "name": "Ivars",
+    "surname": "Rozenvalds",
+    "age": 10,
     "phone": "9009900",
     "address": "909090"
   },
   {
-    "name": "viesturs",
-    "surname": "embergs",
-    "age": 890,
-    "phone": "noone",
-    "address": "parka iela"
+    "name": "Viesturs",
+    "surname": "Emerbergs",
+    "age": 18,
+    "phone": "89833",
+    "address": "parka iela 14"
   },
   {
-    "name": "90",
-    "surname": "09",
-    "age": 900,
-    "phone": "903903",
-    "address": "parka iela"
-  },
-  {
-    "name": "viesturs",
-    "surname": "emerbergs",
-    "age": 89,
-    "phone": "900990",
-    "address": "paijd03"
-  },
-  {
-    "name": "viesturs",
-    "surname": "embergs",
-    "age": 900000,
-    "phone": "89238239",
-    "address": "afpjdffkl"
-  },
-  {
-    "name": "9903",
-    "surname": "90290",
-    "age": 9202,
-    "phone": "290920",
-    "address": "290209"
+    "name": "Artjoms",
+    "surname": "Antanovics",
+    "age": 17,
+    "phone": "83939",
+    "address": "parak iela"
   }
 ]

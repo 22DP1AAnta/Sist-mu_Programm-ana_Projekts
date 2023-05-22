@@ -3,6 +3,63 @@ from workouts import Work_out
 from coach import Coach
 
 
+def sort_data():
+    print("""Choose the file you want to sort whole <.json> data in:\n
+                1. Customers\n
+                2. Workout\n
+                3. Coach\n""")
+
+    default_try_except()
+
+    if choice2 == 1:
+        customer = Customers("", "", 0, "", "")
+        print("""Choose the way you want to sort data in <Coach.json>:\n
+                                        1. By name in alphabetical order\n
+                                        2. By name in reverse-alphabetical order\n
+                                        3. By surname in alphabetical order\n
+                                        4. By surname in reverse-alphabetical order\n
+                                        5. By lowest to highest age\n
+                                        6. By highest to lowest age\n""")
+        default_try_sort()
+        customer.sort_json_customers("customer.json", sort_option)
+        q_continue()
+
+    if choice2 == 2:
+        work_out = Work_out("", "", 0, "", "")
+        print("""Choose the way you want to sort data in <Coach.json>:\n
+                                1. By lowest to highest sets\n
+                                2. By highest to lowest sets\n
+                                3. By lowest to highest reps\n
+                                4. By highest to lowest reps\n
+                                5. By lowest to highest weight\n
+                                6. By highest to lowest weight\n""")
+        default_try_sort()
+        work_out.sort_json_workout("workout.json", sort_option)
+        q_continue()
+
+    elif choice2 == 3:
+        coach = Coach("", "", 0, "", "", 0)
+        print("""Choose the way you want to sort data in <Coach.json>:\n
+                        1. By name in alphabetical order\n
+                        2. By name in reverse-alphabetical order\n
+                        3. By surname in alphabetical order\n
+                        4. By surname in reverse-alphabetical order\n
+                        5. By lowest to highest work stasis\n
+                        6. By highest to lowest work stasis\n""")
+        default_try_sort()
+        coach.sort_json_coach("Coach.json", sort_option)
+        q_continue()
+
+def default_try_sort():
+    global sort_option
+    while True:
+        sort_option = input("Input your third choice: ")
+        try:
+            sort_option = int(sort_option)
+            break
+        except ValueError:
+            print("Invalid choice. Please enter a valid integer value for choice.")
+
 def default_index_check(choice):
     global index
     a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
@@ -295,6 +352,8 @@ def main_menu():
         delete_data()
     elif choice == 4:
         search_data()
+    elif choice == 6:
+        sort_data()
     elif choice == 7:
         print("Thanks for using our program. Good bye!")
         quit()

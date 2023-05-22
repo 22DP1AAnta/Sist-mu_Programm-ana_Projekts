@@ -194,3 +194,40 @@ class Work_out:
             json.dump(data, file, indent=2)
 
         print("Data deleted successfully.")
+
+    @staticmethod
+    def sort_json_workout(file_path, sort_option):
+        try:
+            with open(file_path, 'r', encoding="UTF-8") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            print("File not found.")
+            return
+        except json.JSONDecodeError:
+            print("Invalid JSON format.")
+            return
+
+        if not data:
+            print("No data available.")
+            return
+
+        if sort_option == 1:  # by sets min to max
+            sorted_data = sorted(data, key=lambda x: x['sets'])
+        elif sort_option == 2:  # max to min
+            sorted_data = sorted(data, key=lambda x: x['sets'], reverse=True)  # reverse =  True, reverses the sort
+        elif sort_option == 3:
+            sorted_data = sorted(data, key=lambda x: x['reps'])
+        elif sort_option == 4:
+            sorted_data = sorted(data, key=lambda x: x['reps'], reverse=True)
+        elif sort_option == 5:  # by weights
+            sorted_data = sorted(data, key=lambda x: x['weight'])
+        elif sort_option == 6:
+            sorted_data = sorted(data, key=lambda x: x['weight'], reverse=True)
+        else:
+            print("Invalid sort option.")
+            return
+
+        with open(file_path, 'w') as file:
+            json.dump(sorted_data, file, indent=2)
+
+        print("Data sorted successfully.")
