@@ -169,7 +169,7 @@ class Work_out:
         print("\033[92m" + "-" * 115 + "\033[0m")
         print("\n\n")
 
-    def delete_data_from_workouts(self, file_path, index):
+    def delete_data_from_workouts(self, file_path, delete_option, index):
         try:
             with open(file_path, 'r', encoding="UTF-8") as file:
                 data = json.load(file)
@@ -179,16 +179,27 @@ class Work_out:
         except json.JSONDecodeError:
             print("Invalid JSON format.")
             return
-
         if not data:
             print("No data available.")
             return
 
-        if index < 0 or index >= len(data):
-            print("Invalid index.")
+        if delete_option == 1:
+            if index < 0 or index >= len(data):
+                print("Invalid index.")
+                return
+            del data[index]
+        elif delete_option == 2:
+            start_index = int(input("Enter the start index to delete: "))
+            end_index = int(input("Enter the end index to delete: "))
+            if start_index < 0 or start_index >= len(data) or end_index < 0 or end_index >= len(data):
+                print("Invalid index.")
+                return
+            del data[start_index:end_index + 1]
+        elif delete_option == 3:
+            data.clear()
+        else:
+            print("Invalid delete option.")
             return
-
-        del data[index]
 
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=2)

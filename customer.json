@@ -1,26 +1,5 @@
 [
   {
-    "name": "Aleksis",
-    "surname": "Vejs",
-    "age": 17,
-    "phone": "mno",
-    "address": "no"
-  },
-  {
-    "name": "Ivars",
-    "surname": "Rozenvalds",
-    "age": 10,
-    "phone": "9009900",
-    "address": "909090"
-  },
-  {
-    "name": "Viesturs",
-    "surname": "Emerbergs",
-    "age": 18,
-    "phone": "89833",
-    "address": "parka iela 14"
-  },
-  {
     "name": "Artjoms",
     "surname": "Antanovics",
     "age": 17,

