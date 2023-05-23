@@ -60,7 +60,6 @@ class Customers:
             "Address"
         )
 
-        # Print data rows"|"
         index = 0
         for customer in data:
             name = customer.get("name", "")
@@ -176,6 +175,7 @@ class Customers:
         if not data:
             print("No data available.")
             return
+
 
         if delete_option == 1:
             if index < 0 or index >= len(data):

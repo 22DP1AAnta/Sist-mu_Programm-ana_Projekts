@@ -224,15 +224,15 @@ class Work_out:
 
         if sort_option == 1:  # by sets min to max
             sorted_data = sorted(data, key=lambda x: x['sets'])
-        elif sort_option == 2:  # max to min
-            sorted_data = sorted(data, key=lambda x: x['sets'], reverse=True)  # reverse =  True, reverses the sort
-        elif sort_option == 3:
+        elif sort_option == 2:  # by sets max to min
+            sorted_data = sorted(data, key=lambda x: x['sets'], reverse=True)
+        elif sort_option == 3:  # by reps min to max
             sorted_data = sorted(data, key=lambda x: x['reps'])
-        elif sort_option == 4:
+        elif sort_option == 4:  # by sets max to min
             sorted_data = sorted(data, key=lambda x: x['reps'], reverse=True)
-        elif sort_option == 5:  # by weights
+        elif sort_option == 5:  # by weights min to max
             sorted_data = sorted(data, key=lambda x: x['weight'])
-        elif sort_option == 6:
+        elif sort_option == 6:  # by weights max to min
             sorted_data = sorted(data, key=lambda x: x['weight'], reverse=True)
         else:
             print("Invalid sort option.")

@@ -3,7 +3,75 @@ from customers import Customers
 from workouts import Work_out
 from coach import Coach
 
+# Function to add data to a customer
+def add_data_loop_customer():
+    global name, surname, age, phone, address
+    name = input("Input your name: ")
+    surname = input("Input your surname: ")
+    while True:
+        age = input("Input your age: ")
+        try:
+            age = int(age)
+            break
+        except ValueError:
+            print("Invalid age format. Please enter a valid integer value for age.")
 
+    phone = input("Input your phone: ")
+    address = input("Input your address: ")
+
+# Function to add data to a  workout
+def add_data_loop_workout():
+    global exercise, sets, reps,  description, weight
+    exercise = input("Input your exercise: ")
+    while True:
+        sets = input("Input your sets: ")
+        try:
+            sets = int(sets)
+            break
+        except ValueError:
+            print("Incorrect set format. Please input again")
+    while True:
+        reps = input("Input your reps: ")
+        try:
+            reps = int(reps)
+            break
+        except ValueError:
+            print("Incorrect reps format. Please input again")
+    description = input("Input your description: ")
+    while True:
+        weight = input("Input your weight(kg): ")
+        try:
+            weight = float(weight)
+            break
+        except ValueError:
+            print("Incorrect reps format. Please input again")
+
+# Function to add data to a coach
+def add_data_loop_coach():
+    global name, surname, age, phone, address, work_stasis
+    name = input("Input your name: ")
+    surname = input("Input your surname: ")
+
+    while True:
+        age = input("Input your age: ")
+        try:
+            age = int(age)
+            break
+        except ValueError:
+            print("Invalid age format. Please enter a valid integer value for age.")
+
+    phone = input("Input your phone: ")
+    address = input("Input your address: ")
+
+    while True:
+        work_stasis = input("Input your work stasis: ")
+        try:
+            work_stasis = int(work_stasis)
+            break
+        except ValueError:
+            print("Invalid work stasis format. Please enter a valid integer value for stasis.")
+
+# Function to handle delete options
 def delete_options_try(choice):
     global delete_option
     a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
@@ -19,6 +87,8 @@ def delete_options_try(choice):
                 break
         except ValueError:
             print("Invalid choice. Please enter a valid integer value for choice.")
+
+# Function to handle sort data
 def sort_data():  # check
     print("""Choose the file you want to sort whole <.json> data in:\n
                 1. Customers\n
@@ -29,7 +99,7 @@ def sort_data():  # check
 
     if choice2 == 1:
         customer = Customers("", "", 0, "", "")
-        print("""Choose the way you want to sort data in <Coach.json>:\n
+        print("""Choose the way you want to sort data in <Customer.json>:\n
                                         1. By name in alphabetical order\n
                                         2. By name in reverse-alphabetical order\n
                                         3. By surname in alphabetical order\n
@@ -42,7 +112,7 @@ def sort_data():  # check
 
     if choice2 == 2:
         work_out = Work_out("", "", 0, "", "")
-        print("""Choose the way you want to sort data in <Coach.json>:\n
+        print("""Choose the way you want to sort data in <Workout.json>:\n
                                 1. By lowest to highest sets\n
                                 2. By highest to lowest sets\n
                                 3. By lowest to highest reps\n
@@ -66,6 +136,7 @@ def sort_data():  # check
         coach.sort_json_coach("Coach.json", sort_option)
         q_continue()
 
+# Function to handle sort options
 def default_try_sort():
     global sort_option
     while True:
@@ -76,6 +147,7 @@ def default_try_sort():
         except ValueError:
             print("Invalid choice. Please enter a valid integer value for choice.")
 
+# Function to handle index
 def default_index_check(choice):
     global index
     a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
@@ -84,9 +156,12 @@ def default_index_check(choice):
         index = input(f"Input the {a} index you want to delete: ")
         try:
             index = int(index)
+            return index
             break
         except ValueError:
             print("Invalid choice. Please enter a valid integer value for choice.")
+
+# Function to handle input - choice2
 def default_try_except():
     global choice2
     while True:
@@ -96,6 +171,8 @@ def default_try_except():
             break
         except ValueError:
             print("Invalid choice. Please enter a valid integer value for choice.")
+
+# Function that allows user to choose either leave to main menu or not
 def q_continue():
     while True:
         q_continue = input("\nDo you want to leave to main menu? Yes / No\nYour choice: ").lower()
@@ -112,6 +189,7 @@ def q_continue():
         print("Exiting the program.")
         exit()
 
+# Function to delete the data
 def delete_data():
     print("""\nChoose the file you want to delete certain data in:\n
             1. Customers\n
@@ -123,7 +201,7 @@ def delete_data():
     if choice2 == 1:
         delete_options = delete_options_try(choice2)
         if delete_options == 1:
-            default_index_check(choice2)
+            index = default_index_check(choice2)
         else:
             index = 0
         customer = Customers("", "", 0, "", "")
@@ -133,7 +211,7 @@ def delete_data():
     if choice2 == 2:
         delete_options = delete_options_try(choice2)
         if delete_options == 1:
-            default_index_check(choice2)
+            index = default_index_check(choice2)
         else:
             index = 0
         work_out = Work_out("", "", 0, "", "")
@@ -143,13 +221,14 @@ def delete_data():
     elif choice2 == 3:
         delete_options = delete_options_try(choice2)
         if delete_options == 1:
-            default_index_check(choice2)
+            index = default_index_check(choice2)
         else:
             index = 0
         coach = Coach("", "", 0, "", "", 0)
         coach.delete_data_from_coach("coach.json", delete_options, index)
         q_continue() # WIP
 
+# Function to search for a certain data
 def search_data():
     print("""Choose the file you want to search / filter data in:\n
         1. Customers\n
@@ -176,6 +255,7 @@ def search_data():
         coach.search_filter_coach_data('coach.json', search_query)
         q_continue() # done
 
+# Function to add data (global)
 def add_data():
     print("""Choose the file you want to add data to:\n
     1. Customers\n
@@ -185,143 +265,39 @@ def add_data():
     default_try_except()
 
     if choice2 == 1:
-        name = input("Input your name: ")
-        surname = input("Input your surname: ")
-        while True:
-            age = input("Input your age: ")
-            try:
-                age = int(age)
-                break
-            except ValueError:
-                print("Invalid age format. Please enter a valid integer value for age.")
-
-        phone = input("Input your phone: ")
-        address = input("Input your address: ")
+        add_data_loop_customer()
         customer = Customers(name, surname, age, phone, address)
-
         while True:
             customer.append_data_to_customer('customer.json', name, surname, age, phone, address)
             q_continue = input("\nDo you want to add something more to the file? Yes / No\nYour choice: ").lower()
-            if q_continue == "no":
-                main_menu()
+            if q_continue in ["yes"]:  # add try-except
+                add_data_loop_customer()
             else:
-                name = input("Input your name: ")
-                surname = input("Input your surname: ")
-                while True:
-                    age = input("Input your age: ")
-                    try:
-                        age = int(age)
-                        break
-                    except ValueError:
-                        print("Invalid age format. Please enter a valid integer value for age.")
+                main_menu()
 
-                phone = input("Input your phone: ")
-                address = input("Input your address: ")
     elif choice2 == 2:
-        exercise = input("Input your exercise: ")
-        while True:
-            sets = input("Input your sets: ")
-            try:
-                sets = int(sets)
-                break
-            except ValueError:
-                print("Incorrect set format. Please input again")
-        while True:
-            reps = input("Input your reps: ")
-            try:
-                reps = int(reps)
-                break
-            except ValueError:
-                print("Incorrect reps format. Please input again")
-        description = input("Input your description: ")
-        while True:
-            weight = input("Input your weight(kg): ")
-            try:
-                weight = float(weight)
-                break
-            except ValueError:
-                print("Incorrect reps format. Please input again")
-
+        add_data_loop_workout()
         workout = Work_out(exercise, sets, reps, description, weight)
         while True:
             workout.append_data_to_workouts('workout.json', exercise, sets, reps, description, weight)
             q_continue = input("Do you want to add something more to the file? Yes / No\nYour choice: ").lower()
-            if q_continue == "no":
-                main_menu()
+            if q_continue in ["yes"]:  # add try-except
+                add_data_loop_workout()
             else:
-                exercise = input("Input your exercise: ")
-                while True:
-                    sets = input("Input your sets: ")
-                    try:
-                        sets = int(sets)
-                        break
-                    except ValueError:
-                        print("Incorrect set format. Please input again")
-                while True:
-                    reps = input("Input your reps: ")
-                    try:
-                        reps = int(reps)
-                        break
-                    except ValueError:
-                        print("Incorrect reps format. Please input again")
-                description = input("Input your description: ")
-                while True:
-                    weight = input("Input your weight(kg): ")
-                    try:
-                        weight = float(weight)
-                        break
-                    except ValueError:
-                        print("Incorrect reps format. Please input again")
+                main_menu()
 
     elif choice2 == 3:
-        name = input("Input your name: ")
-        surname = input("Input your surname: ")
-
-        while True:
-            age_input = input("Input your age: ")
-            try:
-                age = int(age_input)
-                break
-            except ValueError:
-                print("Invalid age format. Please enter a valid integer value for age.")
-
-        phone = input("Input your phone: ")
-        address = input("Input your address: ")
-
-        while True:
-            work_stasis = input("Input your work stasis: ")
-            try:
-                work_stasis = int(work_stasis)
-                break
-            except ValueError:
-                print("Invalid work stasis format. Please enter a valid integer value for stasis.")
+        add_data_loop_coach()
         coach = Coach(name, surname, age, phone, address, work_stasis)
         while True:
             coach.append_data_to_coach('coach.json', name, surname, age, phone, address, work_stasis)
             q_continue = input("Do you want to add something more to the file? Yes / No\nYour choice: ").lower()
-            if q_continue == "no":
-                main_menu()
+            if q_continue in ["yes"]:  # add try-except
+                add_data_loop_coach()
             else:
-                name = input("Input your name: ")
-                surname = input("Input your surname: ")
-                while True:
-                    age = input("Input your age: ")
-                    try:
-                        age = int(age)
-                        break
-                    except ValueError:
-                        print("Invalid age format. Please enter a valid integer value for age.")
-                phone = input("Input your phone: ")
-                address = input("Input your address: ")
-                while True:
-                    work_stasis = input("Input your work stasis: ")
-                    try:
-                        work_stasis = int(work_stasis)
-                        break
-                    except:
-                        print("Invalid work stasis format. Please enter a valid integer value for stasis.")
-                coach = Coach(name, surname, age, phone, address, work_stasis)
+                main_menu()
 
+# Function to print data
 def print_data():
     print("""Choose the file you want to print data of:\n
         1. Customers\n
@@ -345,6 +321,7 @@ def print_data():
         coach.print_data_of_coach('coach.json')
         q_continue()
 
+# Function for a main menu
 def main_menu():
     print("""Choose what to do:\n
     1. Add data\n
