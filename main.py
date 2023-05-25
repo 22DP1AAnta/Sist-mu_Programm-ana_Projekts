@@ -1,7 +1,59 @@
-import os
-from customers import Customers
-from workouts import Work_out
-from coach import Coach
+import os, subprocess
+from colorama import just_fix_windows_console
+from code.customers import Customers
+from code.workouts import Work_out
+from code.coach import Coach
+from code.colors import fg, bg, style
+
+
+def search_query_try():
+    while True:
+        clear_screen()
+        print(fg.WHITE, style.BRIGHT, "Input the", fg.CYAN, " search ", fg.WHITE, "query: ", style.RESET_ALL, sep="",
+              end="")
+        search_query = input()
+        try:
+            if search_query == "":
+                print(fg.RED, style.BRIGHT, "Invalid search querry. Please enter a valid one.", style.RESET_ALL)
+            else:
+                return search_query
+                break
+        except ValueError:
+            print(fg.RED, style.BRIGHT, "Invalid search querry. Please enter a valid one.", style.RESET_ALL)
+
+def clear_screen():
+    os.system("cls")
+
+
+def calculate_data():
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.CYAN, style.BRIGHT, " calculate ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.CYAN, style.BRIGHT, "\tcustomer",style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
+    print(fg.CYAN, style.BRIGHT, "\tworkout",style.RESET_ALL, fg.WHITE,".json", style.RESET_ALL, sep="")
+    print(fg.CYAN, style.BRIGHT, "\tcoach",style.RESET_ALL, fg.WHITE,".json", style.RESET_ALL, sep="")
+    default_try_except()
+
+    if choice2 == "customer":
+        clear_screen()
+        customer = Customers("", "", 0, "", "")
+        search_query = search_query_try()
+        customer.calculate_data_customer("json/customer.json", search_query)
+        q_continue()
+
+    elif choice2 == "workout":
+        clear_screen()
+        workout = Work_out("", "", 0, "", "")
+        search_query = search_query_try()
+        workout.calculate_data_workout("json/workout.json", search_query)
+        q_continue()
+
+    elif choice2 == "coach":
+        coach = Coach("", "", 0, "", "", 0)
+        search_query = search_query_try()
+        coach.calculate_data_coach("json/coach.json", search_query)
+        q_continue()
+
+
 
 # Function to add data to a customer
 def add_data_loop_customer():
@@ -18,10 +70,9 @@ def add_data_loop_customer():
 
     phone = input("Input your phone: ")
     address = input("Input your address: ")
-
 # Function to add data to a  workout
 def add_data_loop_workout():
-    global exercise, sets, reps,  description, weight
+    global exercise, sets, reps, description, weight
     exercise = input("Input your exercise: ")
     while True:
         sets = input("Input your sets: ")
@@ -45,7 +96,6 @@ def add_data_loop_workout():
             break
         except ValueError:
             print("Incorrect reps format. Please input again")
-
 # Function to add data to a coach
 def add_data_loop_coach():
     global name, surname, age, phone, address, work_stasis
@@ -70,44 +120,55 @@ def add_data_loop_coach():
             break
         except ValueError:
             print("Invalid work stasis format. Please enter a valid integer value for stasis.")
-
 # Function to handle delete options
 def delete_options_try(choice):
     global delete_option
-    a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
+    a = ("customer") if choice == "customer" else ("coach") if choice == "coach" else ("workout")
     while True:
-        delete_option = input(f"""Choose the way you want to delete <{a}.json> data:\n\
-                              1. Certain index
-                              2. From index to index
-                              3. All data\nInput your third choice: """)
+        print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the way you want to delete", fg.RED, style.BRIGHT, f" {a}.json ",
+              fg.WHITE,style.BRIGHT, "data:", style.RESET_ALL, sep="")
+        print(fg.RED, style.BRIGHT, "\tcertain index", style.RESET_ALL, sep="")
+        print(fg.RED, style.BRIGHT, "\tfrom index to index", style.RESET_ALL, sep="")
+        print(fg.RED, style.BRIGHT, "\tall data", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "Input your delete option:", style.RESET_ALL, end="")
+        delete_option = input()
         try:
-            delete_option = int(delete_option)
-            if delete_option in [1, 2, 3]:
+            if delete_option in ["certain index", "from index to index", "all data"]:
                 return delete_option
                 break
+            else:
+                print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
         except ValueError:
-            print("Invalid choice. Please enter a valid integer value for choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
+
 
 # Function to handle sort data
 def sort_data():  # check
-    print("""Choose the file you want to sort whole <.json> data in:\n
-                1. Customers\n
-                2. Workout\n
-                3. Coach\n""")
-
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.ORANGE, style.BRIGHT, " filter ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.ORANGE, style.BRIGHT, "\tcustomer", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.ORANGE, style.BRIGHT, "\tworkout", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.ORANGE, style.BRIGHT, "\tcoach", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
     default_try_except()
 
-    if choice2 == 1:
+    if choice2 == "customer":
         customer = Customers("", "", 0, "", "")
-        print("""Choose the way you want to sort data in <Customer.json>:\n
-                                        1. By name in alphabetical order\n
-                                        2. By name in reverse-alphabetical order\n
-                                        3. By surname in alphabetical order\n
-                                        4. By surname in reverse-alphabetical order\n
-                                        5. By lowest to highest age\n
-                                        6. By highest to lowest age\n""")
+        clear_screen()
+        print(fg.WHITE, style.BRIGHT, "  Choose the", fg.ORANGE, " way ", fg.WHITE, "you want to", fg.ORANGE, " filter ",
+              fg.WHITE, style.BRIGHT, "  data in", fg.ORANGE, " <Customer.json>", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  1. By", fg.ORANGE, " name ", fg.WHITE, "in", fg.ORANGE,
+              " alphabetical ",fg.WHITE, style.BRIGHT, "order.", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  2. By", fg.ORANGE, " name ", fg.WHITE, "in", fg.ORANGE,
+              " reverse-alphabetical ", fg.WHITE, style.BRIGHT, "order.", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  3. By", fg.ORANGE, " surname ", fg.WHITE, "in", fg.ORANGE,
+              " alphabetical ", fg.WHITE, style.BRIGHT, "order.", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  4. By", fg.ORANGE, " surname ", fg.WHITE, "in", fg.ORANGE,
+              " reverse-alphabetical ", fg.WHITE, style.BRIGHT, "order.", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  5. By", fg.ORANGE, " lowest to highest age." ,style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "  6. By", fg.ORANGE, " highest to lowest age.", style.RESET_ALL, sep="")
+
         default_try_sort()
-        customer.sort_json_customers("customer.json", sort_option)
+        customer.sort_json_customers("json/customer.json", sort_option)
         q_continue()
 
     if choice2 == 2:
@@ -120,7 +181,7 @@ def sort_data():  # check
                                 5. By lowest to highest weight\n
                                 6. By highest to lowest weight\n""")
         default_try_sort()
-        work_out.sort_json_workout("workout.json", sort_option)
+        work_out.sort_json_workout("json/workout.json", sort_option)
         q_continue()
 
     elif choice2 == 3:
@@ -133,233 +194,276 @@ def sort_data():  # check
                         5. By lowest to highest work stasis\n
                         6. By highest to lowest work stasis\n""")
         default_try_sort()
-        coach.sort_json_coach("Coach.json", sort_option)
+        coach.sort_json_coach("json/coach.json", sort_option)
         q_continue()
+
 
 # Function to handle sort options
 def default_try_sort():
     global sort_option
     while True:
-        sort_option = input("Input your third choice: ")
+        print(fg.WHITE, style.BRIGHT, "Input your sort option:", style.RESET_ALL, end="")
+        sort_option = input()
         try:
             sort_option = int(sort_option)
+            clear_screen()
             break
         except ValueError:
-            print("Invalid choice. Please enter a valid integer value for choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
 
 # Function to handle index
 def default_index_check(choice):
     global index
-    a = ("Customers") if choice == 1 else ("Coach") if choice == 3 else ("Work-out")
-    # short-hand if else that check what to delete
+    a = ("customer") if choice == "customer" else ("coach") if choice == "coach" else ("workout")
     while True:
-        index = input(f"Input the {a} index you want to delete: ")
+        print(fg.WHITE, style.BRIGHT, "\n\n\n  Input the", fg.RED, style.BRIGHT, f" {a} index ",
+              fg.WHITE, style.BRIGHT, "you want to delete:", style.RESET_ALL, sep="", end="")
+        index = input()
         try:
             index = int(index)
             return index
             break
         except ValueError:
-            print("Invalid choice. Please enter a valid integer value for choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid integer value for choice.",
+                  style.RESET_ALL)
 
 # Function to handle input - choice2
 def default_try_except():
     global choice2
     while True:
-        choice2 = input("Input your second choice: ")
+        print(fg.WHITE, style.BRIGHT, "Input your second choice:", style.RESET_ALL, end="")
+        choice2 = input().lower()
         try:
-            choice2 = int(choice2)
-            break
+            if choice2 in ["customer", "workout", "coach"]:
+                break
+            else:
+                print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
         except ValueError:
-            print("Invalid choice. Please enter a valid integer value for choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
+
 
 # Function that allows user to choose either leave to main menu or not
 def q_continue():
     while True:
-        q_continue = input("\nDo you want to leave to main menu? Yes / No\nYour choice: ").lower()
+        print(fg.WHITE, style.BRIGHT, "Do you want to leave to main menu?", fg.GREEN, "YES" , fg.WHITE, "/", fg.RED, "NO", style.RESET_ALL)
+        print(fg.WHITE, style.BRIGHT, "Input your choice: ", style.RESET_ALL, end="")
+        q_continue = input().lower()
         try:
             if q_continue in ["yes", "no"]:
                 break
             else:
-                print("Invalid input. Please enter a valid choice.")
+                print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
         except ValueError:
-            print("Invalid input. Please enter a valid choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
     if q_continue == "yes":
+        clear_screen()
         main_menu()
     else:
-        print("Exiting the program.")
+        print(fg.RED, style.BRIGHT, "Exiting the program.", style.RESET_ALL)
         exit()
+
 
 # Function to delete the data
 def delete_data():
-    print("""\nChoose the file you want to delete certain data in:\n
-            1. Customers\n
-            2. Workout\n
-            3. Coach\n""")
-
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.RED, style.BRIGHT, " delete ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.RED, style.BRIGHT, "\tcustomer", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
+    print(fg.RED, style.BRIGHT, "\tworkout", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
+    print(fg.RED, style.BRIGHT, "\tcoach", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
     default_try_except()
 
-    if choice2 == 1:
+    if choice2 == "customer":
+        clear_screen()
         delete_options = delete_options_try(choice2)
-        if delete_options == 1:
+        if delete_options == "certain index":
             index = default_index_check(choice2)
         else:
             index = 0
         customer = Customers("", "", 0, "", "")
-        customer.delete_data_from_customer("customer.json", delete_options, index)
+        customer.delete_data_from_customer("json/customer.json", delete_options, index)
         q_continue()
 
-    if choice2 == 2:
+    if choice2 == "workout":
+        clear_screen()
         delete_options = delete_options_try(choice2)
-        if delete_options == 1:
+        if delete_options == "certain index":
             index = default_index_check(choice2)
         else:
             index = 0
         work_out = Work_out("", "", 0, "", "")
-        work_out.delete_data_from_workouts("workout.json", delete_options, index)
+        work_out.delete_data_from_workouts("json/workout.json", delete_options, index)
         q_continue()
 
-    elif choice2 == 3:
+    elif choice2 == "coach":
+        clear_screen()
         delete_options = delete_options_try(choice2)
-        if delete_options == 1:
+        if delete_options == "certain index":
             index = default_index_check(choice2)
         else:
             index = 0
         coach = Coach("", "", 0, "", "", 0)
-        coach.delete_data_from_coach("coach.json", delete_options, index)
-        q_continue() # WIP
+        coach.delete_data_from_coach("json/coach.json", delete_options, index)
+        q_continue()  # WIP
+
 
 # Function to search for a certain data
 def search_data():
-    print("""Choose the file you want to search / filter data in:\n
-        1. Customers\n
-        2. Workout\n
-        3. Coach\n""")
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.MAGENTA, style.BRIGHT, " search ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.MAGENTA, style.BRIGHT, "\tcustomer", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.MAGENTA, style.BRIGHT, "\tworkout", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.MAGENTA, style.BRIGHT, "\tcoach", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
 
     default_try_except()
 
-    if choice2 == 1:
-        search_query = input("Input the search query: ")
+    if choice2 == "customer":
+        clear_screen()
+        print(fg.WHITE, style.BRIGHT, "Input the", fg.MAGENTA, " search ", fg.WHITE, "query: ", style.RESET_ALL, sep="", end="")
+        search_query = input()
+        clear_screen()
         customer = Customers("", "", 0, "", "")
-        customer.search_filter_customers_data('customer.json', search_query)
+        customer.search_filter_customers_data('json/customer.json', search_query)
         q_continue()
 
-    elif choice2 == 2:
-        search_query = input("Input the search query: ")
+    elif choice2 == "workout":
+        clear_screen()
+        print(fg.WHITE, style.BRIGHT, "Input the", fg.MAGENTA, " search ", fg.WHITE, "query: ", style.RESET_ALL, sep="", end="")
+        search_query = input()
+        clear_screen()
         workout = Work_out("", "", "", "", "")
-        workout.search_filter_coach_data('workout.json', search_query)
+        workout.search_filter_workout_data('json/workout.json', search_query)
         q_continue()
 
-    elif choice2 == 3:
-        search_query = input("Input the search query: ")
+    elif choice2 == "coach":
+        clear_screen()
+        print(fg.WHITE, style.BRIGHT, "Input the", fg.MAGENTA, " search ", fg.WHITE, "query: ", style.RESET_ALL, sep="", end="")
+        search_query = input()
+        clear_screen()
         coach = Coach("", "", 0, "", "", 0)
-        coach.search_filter_coach_data('coach.json', search_query)
-        q_continue() # done
+        coach.search_filter_coach_data('json/coach.json', search_query)
+        q_continue()  # done
+
 
 # Function to add data (global)
 def add_data():
-    print("""Choose the file you want to add data to:\n
-    1. Customers\n
-    2. Workout\n
-    3. Coach\n""")
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.GREEN, style.BRIGHT, " add ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.GREEN, style.BRIGHT, "\tcustomer", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.GREEN, style.BRIGHT, "\tworkout", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
+    print(fg.GREEN, style.BRIGHT, "\tcoach", fg.WHITE, style.BRIGHT, ".json", style.RESET_ALL, sep="")
 
     default_try_except()
 
-    if choice2 == 1:
+    if choice2 == "customer":
+        clear_screen()
         add_data_loop_customer()
         customer = Customers(name, surname, age, phone, address)
         while True:
-            customer.append_data_to_customer('customer.json', name, surname, age, phone, address)
+            customer.append_data_to_customer('json/customer.json', name, surname, age, phone, address)
             q_continue = input("\nDo you want to add something more to the file? Yes / No\nYour choice: ").lower()
             if q_continue in ["yes"]:  # add try-except
                 add_data_loop_customer()
             else:
                 main_menu()
 
-    elif choice2 == 2:
+    elif choice2 == "workout":
+        clear_screen()
         add_data_loop_workout()
         workout = Work_out(exercise, sets, reps, description, weight)
         while True:
-            workout.append_data_to_workouts('workout.json', exercise, sets, reps, description, weight)
+            workout.append_data_to_workouts('json/workout.json', exercise, sets, reps, description, weight)
             q_continue = input("Do you want to add something more to the file? Yes / No\nYour choice: ").lower()
             if q_continue in ["yes"]:  # add try-except
                 add_data_loop_workout()
             else:
                 main_menu()
 
-    elif choice2 == 3:
+    elif choice2 == "coach":
+        clear_screen()
         add_data_loop_coach()
         coach = Coach(name, surname, age, phone, address, work_stasis)
         while True:
-            coach.append_data_to_coach('coach.json', name, surname, age, phone, address, work_stasis)
+            coach.append_data_to_coach('json/coach.json', name, surname, age, phone, address, work_stasis)
             q_continue = input("Do you want to add something more to the file? Yes / No\nYour choice: ").lower()
             if q_continue in ["yes"]:  # add try-except
                 add_data_loop_coach()
             else:
                 main_menu()
 
+
 # Function to print data
 def print_data():
-    print("""Choose the file you want to print data of:\n
-        1. Customers\n
-        2. Workout\n
-        3. Coach\n""")
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Choose the file you want to", fg.YELLOW, style.BRIGHT, " print ", fg.WHITE,
+          style.BRIGHT, "data of:", style.RESET_ALL, sep="")
+    print(fg.YELLOW, style.BRIGHT, "\tcustomer", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
+    print(fg.YELLOW, style.BRIGHT, "\tworkout", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
+    print(fg.YELLOW, style.BRIGHT, "\tcoach", style.RESET_ALL, fg.WHITE, ".json", style.RESET_ALL, sep="")
 
     default_try_except()
 
-    if choice2 == 1:
+    if choice2 == "customer":
+        clear_screen()
         customer = Customers("", "", 0, "", "")
-        customer.print_data_of_customer('customer.json')
+        customer.print_data_of_customer('json/customer.json')
         q_continue()
 
-    elif choice2 == 2:
+    elif choice2 == "workout":
+        clear_screen()
         work_out = Work_out("", "", "", "", "")
-        work_out.print_data_of_workouts('workout.json')
+        work_out.print_data_of_workouts('json/workout.json')
         q_continue()
 
-    elif choice2 == 3:
+    elif choice2 == "coach":
+        clear_screen()
         coach = Coach("", "", 0, "", "", 0)
-        coach.print_data_of_coach('coach.json')
+        coach.print_data_of_coach('json/coach.json')
         q_continue()
+
 
 # Function for a main menu
+# print (fg.BLUE, style.BRIGHT , "Show me your color" , style.RESET_ALL)
 def main_menu():
-    print("""Choose what to do:\n
-    1. Add data\n
-    2. Print data\n
-    3. Delete data\n
-    4. Search data\n
-    5. Calculate whatever you need\n
-    6. Filter data\n   
-    7. Exit\n
-    """)
-
+    print(fg.WHITE, style.BRIGHT, "\n\n\n  Hello, what do you want to do:", style.RESET_ALL)
+    print(fg.GREEN, style.BRIGHT, "\tadd ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.YELLOW, style.BRIGHT, "\tprint ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.RED, style.BRIGHT, "\tdelete ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.MAGENTA, style.BRIGHT, "\tsearch ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.CYAN, style.BRIGHT, "\tcalculate ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.ORANGE, style.BRIGHT, "\tfilter ", style.RESET_ALL, fg.WHITE, "data", style.RESET_ALL, sep="")
+    print(fg.WHITE, style.BRIGHT, "\tquit ", style.RESET_ALL, fg.WHITE, "programm", style.RESET_ALL, sep="")
     while True:
-        choice = input("Input your choice: ")
+        print(fg.WHITE, style.BRIGHT, "Input your choice: ", style.RESET_ALL, fg.WHITE, end="")
+        choice = input().lower()
         try:
-            choice = int(choice)  # Convert the input to an integer
-            if choice in [1, 2, 3, 4, 5, 6, 7, 0]:
+            if choice in ["add", "print", "delete", "search", "calculate", "filter","quit"]:
                 break
             else:
-                print("Invalid choice. Please enter a valid integer value for choice.")
+                print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
         except ValueError:
-            print("Invalid choice. Please enter a valid integer value for choice.")
+            print(fg.RED, style.BRIGHT, "Invalid choice. Please enter a valid choice.", style.RESET_ALL)
 
-    if choice == 1:
+    if choice == "add":
+        clear_screen()
         add_data()
-    elif choice == 2:
+    elif choice == "print":
+        clear_screen()
         print_data()
-    elif choice == 3:
+    elif choice == "delete":
+        clear_screen()
         delete_data()
-    elif choice == 4:
+    elif choice == "search":
+        clear_screen()
         search_data()
-    elif choice == 6:
+    elif choice == "calculate":
+        clear_screen()
+        calculate_data()
+    elif choice == "filter":
+        clear_screen()
         sort_data()
-    elif choice == 7:
+    elif choice == "quit":
         print("Thanks for using our program. Good bye!")
         quit()
-    elif choice == 0:
-        print("Easter egg")
-        os.system("shutdown /s /t 3")
 
 
+just_fix_windows_console()
 main_menu()
