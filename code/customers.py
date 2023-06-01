@@ -1,5 +1,7 @@
-import json, os
+import json
+import os
 from code.colors import fg, style
+
 
 def clear_screen():
     os.system("cls")
@@ -12,7 +14,6 @@ class Customers:
         self.age = age
         self.phone = phone
         self.address = address
-
 
     def append_data_to_customer(self, file_path, name, surname, age, phone, address):
         new_data = {
@@ -195,9 +196,11 @@ class Customers:
             del data[index]
         elif delete_option == "from index to index":
             clear_screen()
-            print(fg.WHITE, style.BRIGHT, "  Enter the", fg.RED, " start index ", fg.WHITE, "to delete: ", style.RESET_ALL, sep="", end="")
+            print(fg.WHITE, style.BRIGHT, "  Enter the", fg.RED, " start index ",
+                  fg.WHITE, "to delete: ", style.RESET_ALL, sep="", end="")
             start_index = int(input())
-            print(fg.WHITE, style.BRIGHT, "  Enter the", fg.RED, " end ", fg.WHITE, "index to delete: ", style.RESET_ALL, sep="", end="")
+            print(fg.WHITE, style.BRIGHT, "  Enter the", fg.RED, " end ",
+                  fg.WHITE, "index to delete: ", style.RESET_ALL, sep="", end="")
             end_index = int(input())
             if start_index < 0 or start_index >= len(data) or end_index < 0 or end_index >= len(data):
                 print(fg.RED, style.BRIGHT, "  Invalid index.", style.RESET_ALL)
@@ -207,14 +210,17 @@ class Customers:
             clear_screen()
             data.clear()
         else:
-            print(fg.RED, style.BRIGHT, "  Invalid delete option.", style.RESET_ALL)
+            print(fg.RED, style.BRIGHT,
+                  "  Invalid delete option.", style.RESET_ALL)
             return
 
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=2)
 
-        print(fg.GREEN, style.BRIGHT, "  Data deleted successfully.", style.RESET_ALL)
+        print(fg.GREEN, style.BRIGHT,
+              "  Data deleted successfully.", style.RESET_ALL)
 
+    # 6 funkcija
     @staticmethod
     def sort_json_customers(file_path, sort_option):
         try:
@@ -235,12 +241,14 @@ class Customers:
 
         if sort_option == 1:  # by name in alphabetical order
             sorted_data = sorted(data, key=lambda x: x['name'])
-        elif sort_option == 2:
-            sorted_data = sorted(data, key=lambda x: x['name'], reverse=True)  # reverse =  True, reverses the sort
+        elif sort_option == 2:  # by
+            # reverse =  True, reverses the sort
+            sorted_data = sorted(data, key=lambda x: x['name'], reverse=True)
         elif sort_option == 3:  # by surname in alphabetical order
             sorted_data = sorted(data, key=lambda x: x['surname'])
         elif sort_option == 4:
-            sorted_data = sorted(data, key=lambda x: x['surname'], reverse=True)
+            sorted_data = sorted(
+                data, key=lambda x: x['surname'], reverse=True)
         elif sort_option == 5:  # by age
             sorted_data = sorted(data, key=lambda x: x['age'])
         elif sort_option == 6:
@@ -253,8 +261,6 @@ class Customers:
             json.dump(sorted_data, file, indent=2)
 
         print(fg.WHITE, style.BRIGHT, "Data sorted successfully.", style.RESET_ALL)
-
-
 
     def calculate_data_customer(self, file_path, search_query):
         try:

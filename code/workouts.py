@@ -1,8 +1,12 @@
-import json, os
+import json
+import os
 from code.colors import fg, style
+
 
 def clear_screen():
     os.system("cls")
+
+
 class Work_out:
     def __init__(self, exercise, sets, reps, description, weight):
         self.exercise = exercise
@@ -211,13 +215,15 @@ class Work_out:
         elif delete_option == "all data":
             data.clear()
         else:
-            print(fg.RED, style.BRIGHT, "  Invalid delete option.", style.RESET_ALL)
+            print(fg.RED, style.BRIGHT,
+                  "  Invalid delete option.", style.RESET_ALL)
             return
 
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=2)
 
-        print(fg.GREEN, style.BRIGHT, "  Data deleted successfully.", style.RESET_ALL)
+        print(fg.GREEN, style.BRIGHT,
+              "  Data deleted successfully.", style.RESET_ALL)
 
     @staticmethod
     def sort_json_workout(file_path, sort_option):
@@ -258,7 +264,6 @@ class Work_out:
 
         print("Data sorted successfully.")
 
-
     def calculate_data_workout(self, file_path, search_query):
         try:
             with open(file_path, 'r', encoding="UTF-8") as file:
@@ -295,4 +300,43 @@ class Work_out:
 
         count = len(matching_data)
         clear_screen()
-        print(fg.WHITE, style.BRIGHT, "By querry: ",fg.CYAN, search_query, fg.WHITE, ", has been found ",fg.CYAN,count,fg.WHITE, " mathching data.", style.RESET_ALL, sep="")
+        print(fg.WHITE, style.BRIGHT, "By querry: ", fg.CYAN, search_query, fg.WHITE,
+              ", has been found ", fg.CYAN, count, fg.WHITE, " mathching data.", style.RESET_ALL, sep="")
+
+    @staticmethod
+    def sort_json_coach(file_path, sort_option):
+        try:
+            with open(file_path, 'r', encoding="UTF-8") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "File not found.", style.RESET_ALL)
+            return
+        except json.JSONDecodeError:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "Invalid JSON format.", style.RESET_ALL)
+            return
+        if not data:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "No data available.", style.RESET_ALL)
+            return  # reverse =  True, reverses the sort
+        elif sort_option == 1:  # by surname in alphabetical order
+            sorted_data = sorted(data, key=lambda x: x['sets'])
+        elif sort_option == 2:
+            sorted_data = sorted(data, key=lambda x: x['sets'], reverse=True)
+        elif sort_option == 3:  # by age
+            sorted_data = sorted(data, key=lambda x: x['reps'])
+        elif sort_option == 4:
+            sorted_data = sorted(data, key=lambda x: x['reps'], reverse=True)
+        elif sort_option == 5:
+            sorted_data = sorted(data, key=lambda x: x['weight'])
+        elif sort_option == 6:
+            sorted_data = sorted(data, key=lambda x: x['weight'], reverse=True)
+        else:
+            print(fg.RED, style.BRIGHT, "Invalid sort option.", style.RESET_ALL)
+            return
+
+        with open(file_path, 'w') as file:
+            json.dump(sorted_data, file, indent=2)
+
+        print(fg.WHITE, style.BRIGHT, "Data sorted successfully.", style.RESET_ALL)

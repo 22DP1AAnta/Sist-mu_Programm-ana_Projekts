@@ -1,10 +1,17 @@
 [
   {
-    "name": "ads",
-    "surname": "gdf",
-    "age": 87,
-    "phone": "87",
-    "address": "68"
+    "name": "no",
+    "surname": "dfjldk",
+    "age": -9000,
+    "phone": "klasdjf",
+    "address": "viesturs"
+  },
+  {
+    "name": "viesturs",
+    "surname": "viesturs",
+    "age": false,
+    "phone": "292092",
+    "address": "parak iela"
   },
   {
     "name": "artjoms",
@@ -12,5 +19,26 @@
     "age": 19,
     "phone": "fsdfsdf",
     "address": "gdfgdfgdf"
+  },
+  {
+    "name": "ads",
+    "surname": "gdf",
+    "age": 87,
+    "phone": "87",
+    "address": "68"
+  },
+  {
+    "name": "viesturs",
+    "surname": "bergs",
+    "age": 89,
+    "phone": "903034349",
+    "address": "parka iela 4-14"
+  },
+  {
+    "name": "viesturs",
+    "surname": "emerbergs",
+    "age": 89,
+    "phone": "kdlfjd",
+    "address": "kdflajsl;fdsa"
   }
 ]

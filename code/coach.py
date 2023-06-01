@@ -1,11 +1,14 @@
-import json, os
+import json
+import os
 from code.colors import fg, style
-from tabulate import tabulate
+
 
 def clear_screen():
     os.system("cls")
+
+
 class Coach:  # definejam klasi
-    def __init__(self, name , surname, age, phone, address, work_stasis):
+    def __init__(self, name, surname, age, phone, address, work_stasis):
         self.name = name
         self.surname = surname
         self.age = age
@@ -13,11 +16,10 @@ class Coach:  # definejam klasi
         self.address = address
         self.work_stasis = work_stasis
 
-
     def append_data_to_coach(self, file_path, name, surname, age, phone, address, work_stasis):
-        new_data = { 
+        new_data = {
             "name": name,
-            "surname" : surname,
+            "surname": surname,
             "age": age,
             "phone": phone,
             "address": address,
@@ -220,13 +222,16 @@ class Coach:  # definejam klasi
         elif delete_option == "all data":
             data.clear()
         else:
-            print(fg.RED, style.BRIGHT, "  Invalid delete option.", style.RESET_ALL)
+            print(fg.RED, style.BRIGHT,
+                  "  Invalid delete option.", style.RESET_ALL)
             return
 
         with open(file_path, 'w') as file:
             json.dump(data, file, indent=2)
 
-        print(fg.GREEN, style.BRIGHT, "  Data deleted successfully.", style.RESET_ALL)
+        print(fg.GREEN, style.BRIGHT,
+              "  Data deleted successfully.", style.RESET_ALL)
+
     @staticmethod
     def sort_json_coach(file_path, sort_option):
         try:
@@ -250,11 +255,13 @@ class Coach:  # definejam klasi
         elif sort_option == 3:  # by surname in alphabetical order
             sorted_data = sorted(data, key=lambda x: x['surname'])
         elif sort_option == 4:
-            sorted_data = sorted(data, key=lambda x: x['surname'], reverse=True)
+            sorted_data = sorted(
+                data, key=lambda x: x['surname'], reverse=True)
         elif sort_option == 5:  # by work stasis
             sorted_data = sorted(data, key=lambda x: x['work_stasis'])
         elif sort_option == 6:
-            sorted_data = sorted(data, key=lambda x: x['work_stasis'], reverse=True)
+            sorted_data = sorted(
+                data, key=lambda x: x['work_stasis'], reverse=True)
         else:
             print("Invalid sort option.")
             return
@@ -305,3 +312,48 @@ class Coach:  # definejam klasi
         print(fg.WHITE, style.BRIGHT, "By querry: ", fg.CYAN, search_query, fg.WHITE, ", has been found ", fg.CYAN,
               count, fg.WHITE, " mathching data.", style.RESET_ALL, sep="")
 
+    @staticmethod
+    def sort_json_coach(file_path, sort_option):
+        try:
+            with open(file_path, 'r', encoding="UTF-8") as file:
+                data = json.load(file)
+        except FileNotFoundError:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "File not found.", style.RESET_ALL)
+            return
+        except json.JSONDecodeError:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "Invalid JSON format.", style.RESET_ALL)
+            return
+        if not data:
+            clear_screen()
+            print(fg.RED, style.BRIGHT, "No data available.", style.RESET_ALL)
+            return
+
+        if sort_option == 1:  # by name in alphabetical order
+            sorted_data = sorted(data, key=lambda x: x['name'])
+        elif sort_option == 2:  # by
+            # reverse =  True, reverses the sort
+            sorted_data = sorted(data, key=lambda x: x['name'], reverse=True)
+        elif sort_option == 3:  # by surname in alphabetical order
+            sorted_data = sorted(data, key=lambda x: x['surname'])
+        elif sort_option == 4:
+            sorted_data = sorted(
+                data, key=lambda x: x['surname'], reverse=True)
+        elif sort_option == 5:  # by age
+            sorted_data = sorted(data, key=lambda x: x['age'])
+        elif sort_option == 6:
+            sorted_data = sorted(data, key=lambda x: x['age'], reverse=True)
+        elif sort_option == 7:
+            sorted_data = sorted(data, key=lambda x: x['work_stasis'])
+        elif sort_option == 8:
+            sorted_data = sorted(
+                data, key=lambda x: x['work_stasis'], reverse=True)
+        else:
+            print(fg.RED, style.BRIGHT, "Invalid sort option.", style.RESET_ALL)
+            return
+
+        with open(file_path, 'w') as file:
+            json.dump(sorted_data, file, indent=2)
+
+        print(fg.WHITE, style.BRIGHT, "Data sorted successfully.", style.RESET_ALL)
